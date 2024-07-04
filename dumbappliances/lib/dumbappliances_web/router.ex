@@ -18,6 +18,13 @@ defmodule DumbappliancesWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :home
+
+    live "/appliances", ApplianceLive.Index, :index
+    live "/appliances/new", ApplianceLive.Index, :new
+    live "/appliances/:id/edit", ApplianceLive.Index, :edit
+
+    live "/appliances/:id", ApplianceLive.Show, :show
+    live "/appliances/:id/show/edit", ApplianceLive.Show, :edit
   end
 
   # Other scopes may use custom stacks.
