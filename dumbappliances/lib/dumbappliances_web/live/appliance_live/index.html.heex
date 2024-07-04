@@ -1,0 +1,46 @@
+<.header>
+  Listing Appliances
+  <:actions>
+    <.link patch={~p"/appliances/new"}>
+      <.button>New Appliance</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<.table
+  id="appliances"
+  rows={@streams.appliances}
+  row_click={fn {_id, appliance} -> JS.navigate(~p"/appliances/#{appliance}") end}
+>
+  <:col :let={{_id, appliance}} label="Name"><%= appliance.name %></:col>
+  <:col :let={{_id, appliance}} label="Url"><%= appliance.url %></:col>
+  <:col :let={{_id, appliance}} label="Brand"><%= appliance.brand %></:col>
+  <:col :let={{_id, appliance}} label="Category"><%= appliance.category %></:col>
+  <:col :let={{_id, appliance}} label="Contributor"><%= appliance.contributor %></:col>
+  <:col :let={{_id, appliance}} label="Public"><%= appliance.public %></:col>
+  <:action :let={{_id, appliance}}>
+    <div class="sr-only">
+      <.link navigate={~p"/appliances/#{appliance}"}>Show</.link>
+    </div>
+    <.link patch={~p"/appliances/#{appliance}/edit"}>Edit</.link>
+  </:action>
+  <:action :let={{id, appliance}}>
+    <.link
+      phx-click={JS.push("delete", value: %{id: appliance.id}) |> hide("##{id}")}
+      data-confirm="Are you sure?"
+    >
+      Delete
+    </.link>
+  </:action>
+</.table>
+
+<.modal :if={@live_action in [:new, :edit]} id="appliance-modal" show on_cancel={JS.patch(~p"/appliances")}>
+  <.live_component
+    module={DumbappliancesWeb.ApplianceLive.FormComponent}
+    id={@appliance.id || :new}
+    title={@page_title}
+    action={@live_action}
+    appliance={@appliance}
+    patch={~p"/appliances"}
+  />
+</.modal>

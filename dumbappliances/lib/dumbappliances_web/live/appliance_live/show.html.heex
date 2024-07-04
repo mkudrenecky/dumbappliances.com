@@ -1,0 +1,31 @@
+<.header>
+  Appliance <%= @appliance.id %>
+  <:subtitle>This is a appliance record from your database.</:subtitle>
+  <:actions>
+    <.link patch={~p"/appliances/#{@appliance}/show/edit"} phx-click={JS.push_focus()}>
+      <.button>Edit appliance</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<.list>
+  <:item title="Name"><%= @appliance.name %></:item>
+  <:item title="Url"><%= @appliance.url %></:item>
+  <:item title="Brand"><%= @appliance.brand %></:item>
+  <:item title="Category"><%= @appliance.category %></:item>
+  <:item title="Contributor"><%= @appliance.contributor %></:item>
+  <:item title="Public"><%= @appliance.public %></:item>
+</.list>
+
+<.back navigate={~p"/appliances"}>Back to appliances</.back>
+
+<.modal :if={@live_action == :edit} id="appliance-modal" show on_cancel={JS.patch(~p"/appliances/#{@appliance}")}>
+  <.live_component
+    module={DumbappliancesWeb.ApplianceLive.FormComponent}
+    id={@appliance.id}
+    title={@page_title}
+    action={@live_action}
+    appliance={@appliance}
+    patch={~p"/appliances/#{@appliance}"}
+  />
+</.modal>
