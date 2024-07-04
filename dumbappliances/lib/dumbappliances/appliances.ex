@@ -26,10 +26,6 @@ defmodule Dumbappliances.Appliances do
     end
   end
 
-  def list_public_appliances do
-    Repo.all(Appliance)
-  end
-
   @doc """
   Gets a single appliance.
 
