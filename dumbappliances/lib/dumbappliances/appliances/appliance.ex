@@ -8,7 +8,7 @@ defmodule Dumbappliances.Appliances.Appliance do
     field :category, :string
     field :url, :string
     field :brand, :string
-    field :contributor, :string
+    field :contributor, :string, default: "anonymous"
 
     timestamps(type: :utc_datetime)
   end
@@ -17,6 +17,6 @@ defmodule Dumbappliances.Appliances.Appliance do
   def changeset(appliance, attrs) do
     appliance
     |> cast(attrs, [:name, :url, :brand, :category, :contributor, :public])
-    |> validate_required([:name, :url, :brand, :category, :contributor, :public])
+    |> validate_required([:name, :url, :contributor, :public])
   end
 end
