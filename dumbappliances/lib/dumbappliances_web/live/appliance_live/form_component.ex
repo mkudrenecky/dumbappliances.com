@@ -24,7 +24,6 @@ defmodule DumbappliancesWeb.ApplianceLive.FormComponent do
         <.input field={@form[:brand]} type="text" label="Brand" />
         <.input field={@form[:category]} type="text" label="Category" />
         <.input field={@form[:contributor]} type="text" label="Contributor" />
-        <.input field={@form[:public]} type="checkbox" label="Public" />
         <:actions>
           <.button phx-disable-with="Saving...">Save Appliance</.button>
         </:actions>

@@ -14,12 +14,16 @@
   <:item title="Brand"><%= @appliance.brand %></:item>
   <:item title="Category"><%= @appliance.category %></:item>
   <:item title="Contributor"><%= @appliance.contributor %></:item>
-  <:item title="Public"><%= @appliance.public %></:item>
 </.list>
 
 <.back navigate={~p"/appliances"}>Back to appliances</.back>
 
-<.modal :if={@live_action == :edit} id="appliance-modal" show on_cancel={JS.patch(~p"/appliances/#{@appliance}")}>
+<.modal
+  :if={@live_action == :edit}
+  id="appliance-modal"
+  show
+  on_cancel={JS.patch(~p"/appliances/#{@appliance}")}
+>
   <.live_component
     module={DumbappliancesWeb.ApplianceLive.FormComponent}
     id={@appliance.id}

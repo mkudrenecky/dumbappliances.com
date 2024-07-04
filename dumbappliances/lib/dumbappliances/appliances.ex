@@ -17,7 +17,16 @@ defmodule Dumbappliances.Appliances do
       [%Appliance{}, ...]
 
   """
-  def list_appliances do
+  def list_appliances(only_public \\ true) do
+    if only_public do
+      query = from a in Appliance, where: a.public == true, select: a
+      Repo.all(query)
+    else
+      Repo.all(Appliance)
+    end
+  end
+
+  def list_public_appliances do
     Repo.all(Appliance)
   end
 
